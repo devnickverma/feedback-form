@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FeedbackForm from "./components/FeedbackForm";
 import FeedbackList from "./components/FeedbackList";
+import Footer from "./components/Footer"; 
 
 function App() {
   const [showFeedback, setShowFeedback] = useState(false);
@@ -43,7 +44,9 @@ function App() {
       </div>
 
       {showFeedback ? <FeedbackList /> : <FeedbackForm />}
+      <Footer />
     </div>
+    
   );
 }
 
