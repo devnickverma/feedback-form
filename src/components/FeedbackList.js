@@ -1,106 +1,85 @@
-// import { useEffect, useState } from "react";
-
-// export default function FeedbackList() {
-//   const [feedbacks, setFeedbacks] = useState([]);
-
-//   useEffect(() => {
-//     fetch("http://localhost:5000/feedback")
-//       .then(res => res.json())
-//       .then(data => setFeedbacks(data));
-//   }, []);
-
-//   return (
-//     <div className="p-4">
-//       <h2 className="text-xl mb-2">All Feedbacks</h2>
-//       {feedbacks.map((fb, i) => (
-//         <div key={i} className="border p-2 mb-2">
-//           <p><strong>Name:</strong> {fb.name}</p>
-//           <p><strong>Email:</strong> {fb.email}</p>
-//           <p><strong>Message:</strong> {fb.message}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const FeedbackList = () => {
   const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
-      const response = await fetch("http://localhost:5000/feedback");
-      const data = await response.json();
-      setFeedbacks(data);
+      try {
+        const response = await fetch("http://localhost:5000/feedback");
+        const data = await response.json();
+        setFeedbacks(data);
+      } catch (error) {
+        console.error("Error fetching feedbacks:", error);
+      }
     };
 
     fetchFeedbacks();
   }, []);
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.header}>Feedbacks</h2>
-      <div style={styles.feedbackList}>
-        {feedbacks.length > 0 ? (
-          feedbacks.map((feedback, index) => (
-            <div key={index} style={styles.feedbackItem}>
-              <h3 style={styles.feedbackTitle}>{feedback.name}</h3>
-              <p style={styles.feedbackMessage}>{feedback.message}</p>
-              <p style={styles.feedbackEmail}>{feedback.email}</p>
-            </div>
-          ))
-        ) : (
-          <p style={styles.noFeedback}>No feedback yet!</p>
-        )}
-      </div>
+    <div style={styles.listContainer}>
+      <h2 style={styles.header}>User Feedback</h2>
+      <p style={styles.count}>Total Feedbacks: {feedbacks.length}</p>
+
+      {feedbacks.length === 0 ? (
+        <p style={{ textAlign: "center", color: "#666" }}>No feedback yet.</p>
+      ) : (
+        feedbacks.map((fb, index) => (
+          <div key={index} style={styles.card}>
+            <h3 style={styles.name}>{index + 1}. {fb.name}</h3>
+            <p style={styles.email}>{fb.email}</p>
+            <p style={styles.message}>{fb.message}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 };
 
-// Styles object
 const styles = {
-  container: {
+  listContainer: {
     width: "100%",
-    maxWidth: "800px",
-    margin: "20px auto",
+    maxWidth: "700px",
+    margin: "auto",
     padding: "20px",
-    backgroundColor: "#f9f9f9",
-    borderRadius: "8px",
+    backgroundColor: "#fff",
+    borderRadius: "12px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
   },
   header: {
     textAlign: "center",
     fontSize: "24px",
+    marginBottom: "10px",
+    fontWeight: "bold",
+    color: "#333",
+  },
+  count: {
+    textAlign: "center",
+    fontSize: "16px",
     marginBottom: "20px",
+    color: "#555",
   },
-  feedbackList: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  feedbackItem: {
+  card: {
     padding: "15px",
     marginBottom: "15px",
-    backgroundColor: "#fff",
-    borderRadius: "5px",
-    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    backgroundColor: "#e3f2fd",
+    borderRadius: "8px",
+    borderLeft: "5px solid #2196f3",
   },
-  feedbackTitle: {
-    fontSize: "20px",
-    fontWeight: "bold",
-    marginBottom: "10px",
-  },
-  feedbackMessage: {
-    fontSize: "16px",
-    marginBottom: "5px",
-  },
-  feedbackEmail: {
-    fontSize: "14px",
-    color: "#888",
-  },
-  noFeedback: {
-    textAlign: "center",
+  name: {
     fontSize: "18px",
-    color: "#aaa",
+    margin: "0 0 5px 0",
+    color: "#0d47a1",
+  },
+  email: {
+    fontSize: "14px",
+    margin: "0 0 10px 0",
+    color: "#555",
+  },
+  message: {
+    fontSize: "15px",
+    color: "#333",
   },
 };
 

@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config(); // Load environment variables
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://devnickverma:eeET6ChJ%408NJGKy@users.l3z6jyj.mongodb.net/", {
+mongoose.connect(process.env.MONGODB_URI, {
   serverSelectionTimeoutMS: 5000,
 })
 .then(() => console.log("✅ Connected to MongoDB"))

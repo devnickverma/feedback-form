@@ -9,23 +9,25 @@ function App() {
     buttonContainer: {
       display: "flex",
       justifyContent: "center",
-      gap: "20px",
+      flexWrap: "wrap",
+      gap: "15px",
       margin: "20px auto",
     },
     toggleButton: {
       padding: "10px 20px",
       fontSize: "16px",
-      backgroundColor: "#2196F3",
+      backgroundColor: "#3f51b5",
       color: "#fff",
       border: "none",
       borderRadius: "6px",
       cursor: "pointer",
+      minWidth: "160px",
       transition: "background-color 0.3s ease",
     },
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: "#f0f2f5", minHeight: "100vh", padding: "20px" }}>
       <div style={styles.buttonContainer}>
         {!showFeedback && (
           <button style={styles.toggleButton} onClick={() => setShowFeedback(true)}>
@@ -46,3 +48,4 @@ function App() {
 }
 
 export default App;
+
