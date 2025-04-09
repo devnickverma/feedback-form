@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import FeedbackForm from "./components/FeedbackForm";
+import FeedbackList from "./components/FeedbackList";
 
 function App() {
+  const [showFeedbacks, setShowFeedbacks] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="App flex">
+      <div className="w-1/4 bg-gray-100 p-4">
+        <button
+          onClick={() => setShowFeedbacks(!showFeedbacks)}
+          className="bg-green-500 text-white px-4 py-2 w-full"
         >
-          Learn React
-        </a>
-      </header>
+          {showFeedbacks ? "Back to Form" : "Show Feedbacks"}
+        </button>
+      </div>
+      <div className="w-3/4 p-4">
+        {showFeedbacks ? <FeedbackList /> : <FeedbackForm />}
+      </div>
     </div>
   );
 }
