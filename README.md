@@ -109,6 +109,3 @@ This project is open-source and free to use.
 ---
 
 > Made with ❤️ by Nikhil Verma
-```
-
-Let me know if you want it tailored to your repo name or to include screenshots or deploy instructions!
