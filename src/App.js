@@ -1,23 +1,46 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import FeedbackForm from "./components/FeedbackForm";
 import FeedbackList from "./components/FeedbackList";
 
 function App() {
-  const [showFeedbacks, setShowFeedbacks] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  const styles = {
+    buttonContainer: {
+      display: "flex",
+      justifyContent: "center",
+      gap: "20px",
+      margin: "20px auto",
+    },
+    toggleButton: {
+      padding: "10px 20px",
+      fontSize: "16px",
+      backgroundColor: "#2196F3",
+      color: "#fff",
+      border: "none",
+      borderRadius: "6px",
+      cursor: "pointer",
+      transition: "background-color 0.3s ease",
+    },
+  };
 
   return (
-    <div className="App flex">
-      <div className="w-1/4 bg-gray-100 p-4">
-        <button
-          onClick={() => setShowFeedbacks(!showFeedbacks)}
-          className="bg-green-500 text-white px-4 py-2 w-full"
-        >
-          {showFeedbacks ? "Back to Form" : "Show Feedbacks"}
-        </button>
+    <div className="App">
+      <div style={styles.buttonContainer}>
+        {!showFeedback && (
+          <button style={styles.toggleButton} onClick={() => setShowFeedback(true)}>
+            Show Feedback
+          </button>
+        )}
+
+        {showFeedback && (
+          <button style={styles.toggleButton} onClick={() => setShowFeedback(false)}>
+            Back to Feedback Form
+          </button>
+        )}
       </div>
-      <div className="w-3/4 p-4">
-        {showFeedbacks ? <FeedbackList /> : <FeedbackForm />}
-      </div>
+
+      {showFeedback ? <FeedbackList /> : <FeedbackForm />}
     </div>
   );
 }
